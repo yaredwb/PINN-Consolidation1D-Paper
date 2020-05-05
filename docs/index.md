@@ -42,6 +42,6 @@ $$
 \end{equation}
 $$
 
-![Consolidation Illustration](docs/assets/figs/consolidation_illustration.png)
+![Consolidation Illustration](assets/figs/consolidation_illustration.png)
 
 The first equation in \eqref{eq:cons1Dt0andt} establishes the initial condition for the 1D consolidation problem where we note that at $ t = 0 $ the total vertical load is carried by the pore fluid and we don't yet have any fluid dissipation from the porous medium. Whereas, the second equation governs the dissipation rate of the pore fluid as a function of both time and spatial dimension. This equation may be solved for various drainage boundary conditions at the top and bottom of the porous medium through either analytical or numerical methods. We consider an analytical solution here for two different drainage boundary conditions, which are described in a later section
