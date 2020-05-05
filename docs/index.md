@@ -42,7 +42,7 @@ $$
 \end{equation}
 $$
 
-![Consolidation Illustration](assets/figs/consolidation_illustration.png | width=600)
+![Consolidation Illustration](assets/figs/consolidation_illustration.png){: .center-image width="600px"}
 
 The first equation in \eqref{eq:cons1Dt0andt} establishes the initial condition for the 1D consolidation problem where we note that at $ t = 0 $ the total vertical load is carried by the pore fluid and we don't yet have any fluid dissipation from the porous medium. Whereas, the second equation governs the dissipation rate of the pore fluid as a function of both time and spatial dimension. This equation may be solved for various drainage boundary conditions at the top and bottom of the porous medium through either analytical or numerical methods. We consider an analytical solution here for two different drainage boundary conditions, which are described in a later section.
 
@@ -54,6 +54,6 @@ In this section, the neural network architecture and the approach for a applying
 
 A fully-connected deep neural network with the desired number of layers and hidden units is used as a model to be trained with the one-dimensional consolidation problem. An illustration of the neural network architecture is shown in Figure~\ref{fig:nn}. For the one-dimensional consolidation problem here, the input layer provides inputs of $(z,t)$ values from the training data, which usually includes initial and boundary condition data; the details are discussed in forward and inverse numerical example sections later.    
 
-![NN](assets/figs/nn.png)
+![NN](assets/figs/nn.png){: .center-image }
 
 The neural network with the desired number of hidden layers and hidden units performs predictions of the excess pore pressure, which is then used to compute the loss based on the excess pore pressure training data. The neural network also includes a physical constraint based on the governing one-dimensional consolidation equation, where the constraint is evaluated using automatic differentiation, briefly discussed in a sub-section below. The neural network is designed to optimize both the \emph{training loss} and the physical constraint.
