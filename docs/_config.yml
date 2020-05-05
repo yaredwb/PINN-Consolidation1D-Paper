@@ -1,6 +1,6 @@
 theme: jekyll-theme-cayman
 title: Deep Learning for One-dimensional Consolidation
-description: Physics-Informed Neural Networks
+description: Physics-Informed Neural Networks in Soil Mechanics
 markdown: kramdown
 kramdown:
     math_engine: mathjax
