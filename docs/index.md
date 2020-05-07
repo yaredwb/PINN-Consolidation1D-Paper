@@ -64,7 +64,7 @@ A key part of the deep learning model for the problem here is automatic differen
 
 ## Model Training and Hyper-parameters
 
-The deep learning model training is performed in slightly different ways for forward and inverse problems. However, the model hyper-parameters in both cases are adjusted in a similar way. For \emph{forward problems}, the training data involves initial and boundary condition data i.e. a pair of initial and boundary $(z,t)$ values and the corresponding excess pore pressure values $p(z,t)$. The model predicts the excess pore pressure value $\hat{p}$ for a given data point. The \emph{training loss} is calculated as a mean squared error from
+The deep learning model training is performed in slightly different ways for forward and inverse problems. However, the model hyper-parameters in both cases are adjusted in a similar way. For *forward problems*, the training data involves initial and boundary condition data i.e. a pair of initial and boundary $(z,t)$ values and the corresponding excess pore pressure values $p(z,t)$. The model predicts the excess pore pressure value $\hat{p}$ for a given data point. The *training loss* is calculated as a mean squared error from
 
 $$
 \begin{equation}
@@ -80,7 +80,7 @@ f_c = \frac{\partial \hat{p}}{\partial t_c} - c_v \frac{\partial^2 \hat{p}}{\par
 \end{equation}
 $$
 
-The \emph{constraint loss} is calculated as a mean squared error from
+The *constraint loss* is calculated as a mean squared error from
 
 $$
 \begin{equation}
@@ -97,7 +97,7 @@ MSE = MSE_p + MSE_c,
 \end{equation}
 $$
 
-which is minimized by the model optimizer. For \emph{inverse problems}, the training procedure and loss evaluation is mostly similar with some differences. A larger size $(z,t)$ training data is used and collocation points are not generated in this case. This implies that automatic differentiation for the physical constraint is evaluated at the original training data points and the coefficient of consolidation is defined as a trainable parameter i.e.
+which is minimized by the model optimizer. For *inverse problems*, the training procedure and loss evaluation is mostly similar with some differences. A larger size $(z,t)$ training data is used and collocation points are not generated in this case. This implies that automatic differentiation for the physical constraint is evaluated at the original training data points and the coefficient of consolidation is defined as a trainable parameter i.e.
 
 $$
 \begin{equation}
@@ -113,7 +113,7 @@ c_{vt} = \exp(w_{cv}).
 \end{equation} 
 $$
 
-The hyper-parameters tuned during training, both for forward and inverse problems include the \emph{number of layers}, \emph{number of hidden units}, \emph{batch size} and \emph{learning rate}. The batch size is adjusted to control the number of samples from the training data that are passed into the model before updating the trainable model parameters. The total loss here is minimized using the \emph{Adam optimizer} where its associated learning rate is tuned during the training process.
+The hyper-parameters tuned during training, both for forward and inverse problems include the *number of layers*, *number of hidden units*, *batch size* and *learning rate*. The batch size is adjusted to control the number of samples from the training data that are passed into the model before updating the trainable model parameters. The total loss here is minimized using the *Adam optimizer} where its associated learning rate is tuned during the training process.
 
 # Forward Problems
 
