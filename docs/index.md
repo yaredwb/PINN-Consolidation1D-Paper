@@ -117,3 +117,54 @@ The hyper-parameters tuned during training, both for forward and inverse problem
 
 # Forward Problems
 
+The problem we will consider here is a classical one-dimensional consolidation problem, usually referred to as Terzaghi's problem, illustrated in the figure below. The problem examines the dissipation of excess pore pressure with time from the soil column due to the application of a surcharge load of magnitude $ p_o $ at the top boundary. This numerical example is studied for two drainage boundary conditions: with only the top boundary drained  and with both the top and bottom boundaries drained.
+
+![Terzaghi's Problem](assets/figs/consolidation_example.png){: .center-image }
+
+The training data for forward problems is selected to include initial and boundary condition data, as shown in the figure below. The nodes shown in the figure are for illustration only and the actual number of nodes and time steps depends on the spatial and temporal discretization used to obtain the analytical solution to the problem.
+
+![Training Data Forward](assets/figs/training_data_forward.png){: .center-image }
+
+The total number of training points is divided into batches during training by using a specified batch size. The results from this numerical example for the two different boundary conditions are presented in the following sub-sections.
+
+## Consolidation with a Drained Top Boundary
+
+The first case we will consider is a variation of Terzaghi's problem where excess pore pressure dissipation is allowed at the top boundary only i.e. the bottom boundary is considered impermeable. These boundary conditions are expressed mathematically as:
+
+$$
+\begin{equation}
+\begin{cases}
+p = 0 \qquad & \text{at} \; \Gamma_{t}, \; t > 0 \\
+\dfrac{\partial p}{\partial z} = 0 & \text{at} \; \Gamma_{b}, \; t > 0.
+\end{cases}
+\end{equation}
+$$
+
+The initial condition is $ p=p_o $  for $ t=0 $. The analytical solution for the excess pore pressure as a ratio of the initial value is given by
+
+$$
+\begin{equation}
+\frac{p}{p_o} = \frac{4}{\pi} \sum_{k=1}^{\infty} \frac{(-1)^{k-1}}{2k-1} \cos\left[ (2k-1) \frac{\pi z}{2h} \right] \exp\left[ -(2k-1)^2 \frac{\pi^2}{4} \frac{c_v t}{h^2} \right] 
+\label{eq:anasol}
+\end{equation}
+$$
+
+for $ t> 0 $, where $ h $ is the so-called \emph{drainage path} which in this case is equal to the total height of the domain i.e. $ h=H $. The spatial coordinate $z$ can be chosen to have its origin either at the top or at the bottom with positive coordinates in the domain. For the boundary conditions in this case we have $ 0 \leq z \leq H $.
+
+For a numerical example, let's consider the height of the one-dimensional domain to be $ H = 1~\mathrm{m} $ and the coefficient of consolidation of the soil as $ c_v = 0.6~\mathrm{m}^2/\mathrm{yr} $. The exact solution based on the analytical solution is obtained by using a spatial discretization with $ N_z = 100 $ and a temporal discretization with $ N_t = 100 $, with $ t = 1 $ year. As illustrated in Figure~\ref{fig:training_data_forward}, the initial and boundary data $ \left\lbrace  z,t,p \right\rbrace $ are extracted from the exact solution as training data. The inputs to the neural network are the values $(z,t)$ where the model predicts a pore pressure value $\hat{p}$ as an output, which is then used to calculate the \emph{training loss}. A neural network with 10 hidden layers and 20 hidden units at each layer is used as the model to be trained. The spatial and temporal derivatives of the predicted pore pressure, as they appear in the constraint equation, are determined at selected collocation points using automatic differentiation in \verb|TensorFlow|. The collocation points are generated using the latin hypercube sampling strategy and for the example here $ N_c=10000 $ collocation $(z_c,t_c)$ points are generated. After the derivatives of $\hat{p}$ with respect to the collocation points are determined, the \emph{constraint loss} is calculated. A combination of training and constraint losses, as defined in equation~\eqref{eq:total_loss}, is minimized using the Adam optimizer for the desired number of epochs. The learning rate for the optimizer and the batch size used for training are 0.001 and 100, respectively.
+
+The final model trained using the initial and boundary data, and constrained at the collocation points according to the governing equation, is used to predict the excess pore pressure for spatial and temporal points of the model domain. The results obtained from the analytical solution and model prediction are shown in Figure~\ref{fig:color_plot_drained_top} in terms of color plots on a two-dimensional grid from the $(z,t)$ data.
+
+![Forward Results Color Plot](assets/figs/forward_color_drained_top.png){: .center-image }
+
+![Forward Results Curves](assets/figs/forward_curves_drained_top.png){: .center-image }
+
+The color plot is obtained by interpolation of the nearest excess pore pressure values from the actual grid points and is chosen here only for visualization convenience. As can be seen from the color plots of the analytical solution and model prediction, the deep learning model predicts the excess pore pressure values at the interior grid points reasonably well just based on initial and boundary training data. This demonstrates the remarkable accuracy of the physical constraint enforced through automatic differentiation in the deep learning model. A closer comparison of the analytical solution and model prediction is shown for selected time steps in the plot on the left in Figure~\ref{fig:plots_drained_top}. The time steps used for comparison are shown in the top plot in Figure~\ref{fig:color_plot_drained_top}. The results show a remarkably good agreement. The $L_2$ norm of the relative error i.e.
+
+$$
+\begin{equation}
+e = \frac{\| \hat{p} - p \|_{L_2}}{\| p \|_{L_2}},
+\end{equation}
+$$
+
+in this case was found to be $7.3\times10^{-3}$. A plot of the mean squared errors versus number of epochs is shown in the right plot in Figure~\ref{fig:plots_drained_top}. The plot shows the total mean squared error as well as the mean squared errors of the training and constraint losses. Mean squared error values in the order of $10^{-5}$ are obtained near the end of the training.   
