@@ -123,7 +123,7 @@ The problem we will consider here is a classical one-dimensional consolidation p
 
 The training data for forward problems is selected to include initial and boundary condition data, as shown in the figure below. The nodes shown in the figure are for illustration only and the actual number of nodes and time steps depends on the spatial and temporal discretization used to obtain the analytical solution to the problem.
 
-![Training Data Forward](assets/figs/training_data_forward.png){: .center-image }
+![Training Data Forward](assets/figs/training_data_forward.png){: .center-image width="700px"}
 
 The total number of training points is divided into batches during training by using a specified batch size. The results from this numerical example for the two different boundary conditions are presented in the following sub-sections.
 
@@ -155,7 +155,7 @@ For a numerical example, let's consider the height of the one-dimensional domain
 
 The final model trained using the initial and boundary data, and constrained at the collocation points according to the governing equation, is used to predict the excess pore pressure for spatial and temporal points of the model domain. The results obtained from the analytical solution and model prediction are shown in Figure~\ref{fig:color_plot_drained_top} in terms of color plots on a two-dimensional grid from the $(z,t)$ data.
 
-![Forward Results Color Plot](assets/figs/forward_color_drained_top.png){: .center-image }
+![Forward Results Color Plot](assets/figs/forward_color_drained_top.png){: .center-image width="700px"}
 
 ![Forward Results Curves](assets/figs/forward_curves_drained_top.png){: .center-image }
 
