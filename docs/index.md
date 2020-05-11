@@ -167,4 +167,26 @@ e = \frac{\| \hat{p} - p \|_{L_2}}{\| p \|_{L_2}},
 \end{equation}
 $$
 
-in this case was found to be $7.3\times10^{-3}$. A plot of the mean squared errors versus number of epochs is shown in the right plot in Figure~\ref{fig:plots_drained_top}. The plot shows the total mean squared error as well as the mean squared errors of the training and constraint losses. Mean squared error values in the order of $10^{-5}$ are obtained near the end of the training.   
+in this case was found to be $7.3\times10^{-3}$. A plot of the mean squared errors versus number of epochs is shown in the right plot in Figure~\ref{fig:plots_drained_top}. The plot shows the total mean squared error as well as the mean squared errors of the training and constraint losses. Mean squared error values in the order of $10^{-5}$ are obtained near the end of the training.
+
+## Consolidation with drained top and bottom boundaries
+
+When both the top and bottom boundaries are permeable, excess pore pressure can dissipate through both boundaries. Mathematically, this boundary condition is expressed as
+
+$$
+\begin{equation}
+p = 0 \qquad  \text{for} \; \Gamma_{t} \cup \Gamma_{b}, \; t > 0 \\
+\end{equation}
+$$
+
+The analytical solution in equation \eqref{eq:anasol} still holds where in this case the drainage path is half of the height of the sample, i.e. $ h=H/2 $, as the pore fluid is allowed to dissipate through both the top and bottom boundaries. This case is equivalent to stating that there is no pore fluid flow at the center of the sample. Thus, the origin of the spatial coordinate is defined at the mid height of the domain and we have $ -H/2 \leq z \leq H/2 $.
+
+The numerical example in the previous section is considered here again with the same model geometry but with different boundary conditions i.e. with drained top and bottom boundaries. In addition, the coefficient of consolidation in this case is assumed to be $ c_v = 0.1~\mathrm{m^2/yr} $ for the same model height, considering the faster consolidation as a result of both boundaries being drained. The analytical solution is again obtained using $ N_z = 100 $ and $ N_t = 100 $. The initial and boundary data are extracted in a similar way as in the previous case for training the model. The hyper-parameters of the neural network model are set to be similar as well. A deep network with 10 layers and 20 hidden units at each layer is used. The number of collocation points and the learning rate for the optimizer (Adam) are 10000 and 0.001, respectively. A batch size of 100 is used here as well.
+
+Grid color plots comparing the analytical and model-predicted solutions are shown in the figure below. We again observe a good performance by the deep learning model in predicting the excess pore pressure at the interior grid points.     
+
+![Forward Results Color Plot 2](assets/figs/forward_color_drained_top_and_bottom.png){: .center-image width="700px"}
+
+![Forward Results Curves 2](assets/figs/forward_curves_drained_top_and_bottom.png){: .center-image }
+
+A closer comparison of the excess pore pressure for selected time steps is shown in Figure~\ref{fig:plots_drained_top_and_bottom}. The time steps selected for comparison are shown in the top color plot in the preceding figure. We see a very good agreement between the analytical solution and the deep learning model prediction. The $ L_2 $ norm of the relative error between the analytical and predicted solutions in this case is found to be  $ 2.62 \times 10^{-3} $. The second plot in figure above shows the evolution of the mean squared error with the number of epochs for the total mean squared error as well as the mean squared errors for the training and constraint losses. 
