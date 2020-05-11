@@ -169,7 +169,7 @@ $$
 
 in this case was found to be $7.3\times10^{-3}$. A plot of the mean squared errors versus number of epochs is shown in the right plot in the previous figure. The plot shows the total mean squared error as well as the mean squared errors of the training and constraint losses. Mean squared error values in the order of $10^{-5}$ are obtained near the end of the training.
 
-## Consolidation with drained top and bottom boundaries
+## Consolidation with Drained Top and Bottom Boundaries
 
 When both the top and bottom boundaries are permeable, excess pore pressure can dissipate through both boundaries. Mathematically, this boundary condition is expressed as
 
