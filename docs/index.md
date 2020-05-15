@@ -210,3 +210,15 @@ The results for inverse analysis of the problem with a drained top boundary are 
 ![Inverse Results Curves](assets/figs/inverse_curves_drained_top.png){: .center-image }
 
 The plot on the left in figure above shows the evolution of the predicted coefficient of consolidation as the training progresses, as a function of the number of epochs. The final predicted value of the coefficient of consolidation is $ c_v = 0.5970~\mathrm{m^2/yr} $, which is close to the expected value of $ c_v = 0.6~\mathrm{m^2/yr} $ with an absolute error of $ 3.0 \times 10^{-3} $. The plot on the right shows the evolution of the mean squared errors as a function of the training epochs.
+
+## Consolidation with Drained Top and Bottom Boundaries
+
+We consider again the numerical example in the previous section where in this case both the top and bottom boundaries are drained. The model geometry remains similar but the analytical solution here is obtained using a coefficient of consolidation of $ c_v = 0.1~\mathrm{m^2/yr} $, which we aim to predict using the inverse deep learning model. We have 10000 data points from the analytical solution based on $ N_z = 100 $ and $ N_t = 100 $, from where a training sample of 2000 is randomly selected. The neural network has a similar architecture with 10 hidden layers and 20 hidden units at each layer. The other model hyper-parameters remain similar: the batch size is 200 and Adam optimizer is used with a learning rate of 0.0001.
+
+The results for inverse analysis for drained top and bottom boundaries are shown in the figures below. With a limited training sample, the model predicts the excess pore pressures throughout the grid with a good accuracy.
+
+![Inverse Results Color Plot 2](assets/figs/inverse_color_drained_top_and_bottom.png){: .center-image width="700px"}
+
+![Inverse Results Curves 2](assets/figs/inverse_curves_drained_top_and_bottom.png){: .center-image }
+
+The coefficient of consolidation predicted by the deep learning model is $ c_v = 0.0994~\mathrm{m^2/yr} $, which compared to the expected value of $ c_v = 0.1~\mathrm{m^2/yr} $ implies an absolute error of $ 6.0 \times 10^{-4} $. These results are shown on the left plot in the figure above, which shows the evolution of the predicted coefficient of consolidation as a function of the number of training epochs. The right plot in the same figure shows the mean squared errors (total, training and constraint) as a function of the number of training epochs.
