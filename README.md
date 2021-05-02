@@ -1,4 +1,4 @@
-# Deep Learning for One-dimensional Consolidation
+# Physics-informed Deep Learning for One-dimensional Consolidation
 Neural networks constrained by physical governing equations are interesting for many applications. The work here presents my contribution on the application of deep learning for one-dimensional consolidation problems, where I used TensorFlow for the implementation. While one-dimensional consolidation is a simple problem for demonstration, the implications of the concept are far greater. Potential application areas include faster numerical prediction for digital twins, better reproducibility of numerical models and improved optimisation of constitutive model parameters for complex numerical simulations. The paper related to this work is published in the Journal of Rock Mechanics and Geotechnical Engineering - https://doi.org/10.1016/j.jrmge.2020.09.005.
 
 ![Deep Learning Model](docs/assets/figs/nn.png)
