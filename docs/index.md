@@ -4,7 +4,7 @@ title: Deep Learning for One-dimensional Consolidation
 mathjax: true
 ---
 
-#### Author: [Yared W. Bekele](https://yaredwb.com/)
+#### Author: [Yared W. Bekele](https://yaredwb.github.io/)
 
 
 ### Abstract
